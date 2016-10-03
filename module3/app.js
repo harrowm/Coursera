@@ -26,26 +26,30 @@ function foundItemsDirective() {
 
 
 function FoundItemsDirectiveController() {
-  var list = this;
-
-  list.removeItem = function (idx) {
-    list.items.splice(idx, 1);
-  };
+  // var list = this;
+  //
+  // list.removeItem = function (idx) {
+  //   list.items.splice(idx, 1);
+  // };
 }
 
 
 NarrowItDownController.$inject = ['$scope', 'MenuSearchService'];
 function NarrowItDownController($scope, MenuSearchService) {
-  var narrow = this;
+  var menu = this;
 
-  narrow.getItems = function() {
-    MenuSearchService.getMatchedMenuItems(narrow.searchTerm)
+  menu.getItems = function() {
+    MenuSearchService.getMatchedMenuItems(menu.searchTerm)
     .then(function(response) {
-      narrow.found = response;
+      menu.found = response;
     }, (function(response) {
       console.log("Something went wrong with getting menu data from the server");
     }));
-  }
+  };
+
+  menu.removeItem = function (idx) {
+    menu.found.splice(idx, 1);
+  };
 };
 
 MenuSearchService.$inject = ['$http', 'dbURL'];

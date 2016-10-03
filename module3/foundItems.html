@@ -4,7 +4,7 @@
       {{item.short_name}} ** {{item.name}} ** {{item.description}}
     </td>
     <td class="col-sm-4">
-      <button ng-click="list.removeItem({index: $index});" class="btn btn-sm btn-default">Don't want this one!</button>
+      <button ng-click="list.onRemove({index: $index});" class="btn btn-sm btn-default">Don't want this one!</button>
     </td>
   </tr>
 </table>
