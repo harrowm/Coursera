@@ -5,6 +5,7 @@
 angular.module('NarrowItDownApp', [])
  .controller('NarrowItDownController', NarrowItDownController)
  .service('MenuSearchService', MenuSearchService)
+ .constant('dbURL', 'https://davids-restaurant.herokuapp.com/menu_items.json')
  .directive('foundItems', foundItemsDirective);
 
 
@@ -27,8 +28,8 @@ function foundItemsDirective() {
 function FoundItemsDirectiveController() {
   var list = this;
 
-  list.removeItem = function (index) {
-    list.items.splice(index, 1);
+  list.removeItem = function (idx) {
+    list.items.splice(idx, 1);
   };
 }
 
@@ -47,28 +48,23 @@ function NarrowItDownController($scope, MenuSearchService) {
   }
 };
 
-MenuSearchService.$inject = ['$http'];
-function MenuSearchService($http) {
+MenuSearchService.$inject = ['$http', 'dbURL'];
+function MenuSearchService($http, dbURL) {
   var service = this;
 
   service.getMatchedMenuItems = function(searchTerm) {
     return $http
-      .get('https://davids-restaurant.herokuapp.com/menu_items.json')
+      .get(dbURL)
       .then(function (result) {
-        // process result and only keep items that match
-        var allItems = result.data.menu_items;
         var foundItems = [];
 
-        if (searchTerm.length > 0) {
-            for (var i = 0; i < allItems.length; i++) {
-                if (allItems[i].description.toLowerCase().indexOf(searchTerm) >= 0) {
-                    foundItems.push(allItems[i]);
-                }
-            }
-        } else { // ensure that old list is cleared
-          allItems = [];
+        if ((searchTerm != null) && (searchTerm.length > 0)) {
+          var lowerSearchTerm = searchTerm.toLowerCase();
+          foundItems = result.data.menu_items
+          .filter(function (item) {
+            return item.description.toLowerCase().indexOf(lowerSearchTerm) !== -1;
+          });
         }
-
         return foundItems;
       });
   }
