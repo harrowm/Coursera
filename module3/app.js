@@ -4,7 +4,33 @@
 
 angular.module('NarrowItDownApp', [])
  .controller('NarrowItDownController', NarrowItDownController)
- .service('MenuSearchService', MenuSearchService);
+ .service('MenuSearchService', MenuSearchService)
+ .directive('foundItems', foundItemsDirective);
+
+
+function foundItemsDirective() {
+ var ddo = {
+   templateUrl: 'foundItems.html',
+   scope: {
+     items: '<',
+     onRemove: '&'
+   },
+   controller: FoundItemsDirectiveController,
+   controllerAs: 'list',
+   bindToController: true
+ };
+
+ return ddo;
+}
+
+
+function FoundItemsDirectiveController() {
+  var list = this;
+
+  list.removeItem = function (index) {
+    list.items.splice(index, 1);
+  };
+}
 
 
 NarrowItDownController.$inject = ['$scope', 'MenuSearchService'];

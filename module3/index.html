@@ -19,25 +19,7 @@
       <button class="btn btn-primary" ng-click="menulist.getItems()">Narrow It Down For Me!</button>
     </div>
 
-    <!-- Bonus loader (see Bonus section of the assignment) -->
-    <!-- <items-loader-indicator></items-loader-indicator> -->
-
-    <!-- found-items should be implemented as a component -->
-    <!-- <found-items found-items="...." on-remove="...."></found-items> -->
-    <!-- <ol>
-      <li ng-repeat="i in list.found">
-        {{i.name}}
-      </li>
-    </ol> -->
-
-    <!-- <div ng-controller='MenuCategoriesController as menu'> -->
-      <ul>
-        <li ng-repeat="item in menulist.found">
-          {{ item.short_name }} -- {{ item.name }} -- {{ item.description }}
-        </li>
-      </ul>
-    <!-- </div> -->
-
+    <found-items items="menulist.found" on-remove="menulist.removeItem(index)"></found-items>
 
   </div>
 
