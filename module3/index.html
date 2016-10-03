@@ -8,27 +8,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="app.js"></script>
   </head>
-<body>
-   <div class="container" ng-controller='NarrowItDownController as list'>
+<body ng-controller="NarrowItDownController as menulist">
+   <div class="container">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
     <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
+      <input type="text" placeholder="search term" ng-model="menulist.searchTerm" class="form-control">
     </div>
     <div class="form-group narrow-button">
-      <button class="btn btn-primary" ng-click="list.getItems()">Narrow It Down For Me!</button>
+      <button class="btn btn-primary" ng-click="menulist.getItems()">Narrow It Down For Me!</button>
     </div>
 
     <!-- Bonus loader (see Bonus section of the assignment) -->
-    <items-loader-indicator></items-loader-indicator>
+    <!-- <items-loader-indicator></items-loader-indicator> -->
 
     <!-- found-items should be implemented as a component -->
     <!-- <found-items found-items="...." on-remove="...."></found-items> -->
-    <ol>
-      <li ng-repeat="i in list.items">
+    <!-- <ol>
+      <li ng-repeat="i in list.found">
         {{i.name}}
       </li>
-    </ol>
+    </ol> -->
+
+    <!-- <div ng-controller='MenuCategoriesController as menu'> -->
+      <ul>
+        <li ng-repeat="item in menulist.found">
+          {{ item.short_name }} -- {{ item.name }} -- {{ item.description }}
+        </li>
+      </ul>
+    <!-- </div> -->
+
+
   </div>
 
 </body>

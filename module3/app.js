@@ -10,26 +10,39 @@ angular.module('NarrowItDownApp', [])
 NarrowItDownController.$inject = ['$scope', 'MenuSearchService'];
 function NarrowItDownController($scope, MenuSearchService) {
   var narrow = this;
-  var items = null;
 
   narrow.getItems = function() {
-    console.log("hi");
-    narrow.items = MenuSearchService.getMatchedMenuItems('help');
-    console.log(narrow.items);
+    MenuSearchService.getMatchedMenuItems(narrow.searchTerm)
+    .then(function(response) {
+      narrow.found = response;
+    }, (function(response) {
+      console.log("Something went wrong with getting menu data from the server");
+    }));
   }
 };
 
-
+MenuSearchService.$inject = ['$http'];
 function MenuSearchService($http) {
   var service = this;
 
   service.getMatchedMenuItems = function(searchTerm) {
-    return $http({url: ('https://davids-restaurant.herokuapp.com/menu_items.json')})
+    return $http
+      .get('https://davids-restaurant.herokuapp.com/menu_items.json')
       .then(function (result) {
         // process result and only keep items that match
-        var foundItems = result.data;
-        console.log(foundItems);
-        // return processed items
+        var allItems = result.data.menu_items;
+        var foundItems = [];
+
+        if (searchTerm.length > 0) {
+            for (var i = 0; i < allItems.length; i++) {
+                if (allItems[i].description.toLowerCase().indexOf(searchTerm) >= 0) {
+                    foundItems.push(allItems[i]);
+                }
+            }
+        } else { // ensure that old list is cleared
+          allItems = [];
+        }
+
         return foundItems;
       });
   }
