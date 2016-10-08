@@ -32,7 +32,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   // Item detail
-  .state('categories.detail', {
+  .state('categories.itemlist', {
     templateUrl: 'src/menuapp/templates/itemlist.template.html',
     params: {
       itemId: null
