@@ -1,0 +1,72 @@
+<div class="container">
+  <h2 id="signup-title" class="text-center">
+    Sign up for our newsletter!
+  </h2>
+  <br>
+
+  <form name="signupform" class="form-horizontal" novalidate>
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="firstname">First name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="firstname" ng-model="user.firstname" required>
+        <div ng-show="signupform.$submitted || signupform.firstname.$touched">
+          <div ng-show="signupform.firstname.$error.required">Please enter your first name.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="lastname">Last name:</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="lastname" ng-model="user.lastname" required>
+        <div ng-show="signupform.$submitted || signupform.lastname.$touched">
+          <div ng-show="signupform.lastname.$error.required">Please enter your last name.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="email">eMail:</label>
+      <div class="col-sm-4">
+        <input type="email" class="form-control" name="email" ng-model="user.email" required>
+        <div ng-show="signupform.$submitted || signupform.email.$touched">
+          <div ng-show="signupform.email.$error.required || signupform.email.$error.email">Please enter a valid email address.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="tel">Tel:</label>
+      <div class="col-sm-4">
+        <input type="tel" class="form-control" name="tel" ng-model="user.tel" required>
+        <div ng-show="signupform.$submitted || signupform.tel.$touched">
+          <div ng-show="signupform.tel.$error.required">Please enter your telephone number.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-4" for="dish">Favorite dish:</label>
+      <div class="col-sm-4">
+        <input type="dish" class="form-control" name="dish" ng-model="user.dish" ng-model-options="{ debounce: 250 }" required valid-menu-item>
+        <div ng-show="signupform.$submitted || signupform.dish.$touched">
+          <div ng-show="signupform.dish.$error.required">Please enter the menu number of your favorite dish.</div>
+          <div ng-show="signupform.dish.$error.validMenuItem">No such menu number exists.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-8">
+        <button type="submit" class="btn btn-default" ng-disabled="signupform.$invalid || signupform.$pending" ng-click="saveSignUp()">Submit</button>
+      </div>
+    </div>
+
+    <div class="col-sm-offset-4 col-sm-8">
+      <div ng-show="signupform.$submitted && !signupform.$dirty">Your information has been saved</div>
+    </div>
+    <div class="col-sm-offset-4 col-sm-10" ng-hide="signupform.dish.$error.validMenuItem || signupform.dish.$error.required">
+      <menu-item menu-item="menuItem"></menu-item>
+    </div>
+  </form>
+</div>
