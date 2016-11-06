@@ -7,12 +7,20 @@ angular.module('public')
 SignUpController.$inject = ['$scope', 'SignUpService'];
 function SignUpController($scope, SignUpService) {
 
+  // var defaultForm = {
+  //     firstname : "Matthew",
+  //     lastname : "Smith",
+  //     email: "Matt.Smith@Nowhere.com",
+  //     tel:  "+65 8767 3838",
+  //     dish : "A4"
+  // }
+
   var defaultForm = {
-      firstname : "Matthew",
-      lastname : "Smith",
-      email: "Matt.Smith@Nowhere.com",
-      tel:  "+65 8767 3838",
-      dish : "A4"
+      firstname : "",
+      lastname : "",
+      email: "",
+      tel:  "",
+      dish : ""
   }
 
   $scope.user = angular.copy(defaultForm);
