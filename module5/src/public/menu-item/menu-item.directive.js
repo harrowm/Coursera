@@ -12,7 +12,7 @@ function validMenuItem($http, $q, ApiPath) {
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
       ngModel.$asyncValidators.validMenuItem = function(modelValue, viewValue) {
-        return $http.get(ApiPath + '/menu_items/' + modelValue + '.json')
+        return $http.get(ApiPath + '/menu_items/' + modelValue.toUpperCase() + '.json')
           .then(function(response) {
             scope.menuItem = response.data;
             return true;

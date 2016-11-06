@@ -12,6 +12,7 @@ function SignUpService($http, ApiPath, $q) {
   var user = {firstname:"", lastname:"", email:"", tel:"", dish:""};
 
   service.setUser = function (user) {
+    user.dish = user.dish.toUpperCase();
     service.user = user;
   };
 
