@@ -23,14 +23,17 @@ function SignUpController($scope, SignUpService) {
       dish : ""
   }
 
+  $scope.saved = false;
+
   $scope.user = angular.copy(defaultForm);
 
   $scope.saveSignUp = function() {
-      SignUpService.setUser($scope.user);
+    SignUpService.setUser($scope.user);
 
-      $scope.signupform.$setPristine();
-      $scope.signupform.$setUntouched();
-      $scope.user = angular.copy(defaultForm);
+    $scope.signupform.$setPristine();
+    $scope.signupform.$setUntouched();
+    $scope.user = angular.copy(defaultForm);
+    $scope.saved = true;
   };
 }
 

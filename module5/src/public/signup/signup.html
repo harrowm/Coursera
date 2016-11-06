@@ -48,7 +48,7 @@
     <div class="form-group">
       <label class="control-label col-sm-4" for="dish">Favorite dish:</label>
       <div class="col-sm-4">
-        <input type="dish" class="form-control" name="dish" ng-model="user.dish" ng-model-options="{ debounce: 250 }" required valid-menu-item>
+        <input type="dish" class="form-control" name="dish" ng-model="user.dish" ng-model-options="{ debounce: 350 }" required valid-menu-item>
         <div ng-show="signupform.$submitted || signupform.dish.$touched">
           <div ng-show="signupform.dish.$error.required">Please enter the menu number of your favorite dish.</div>
           <div ng-show="signupform.dish.$error.validMenuItem">No such menu number exists.</div>
@@ -63,7 +63,8 @@
     </div>
 
     <div class="col-sm-offset-4 col-sm-8">
-      <div ng-show="signupform.$submitted && !signupform.$dirty">Your information has been saved</div>
+      <!-- signupform.$submitted was inconsistent .. replaced with my own boolean -->
+      <div ng-show="saved && !signupform.$dirty">Your information has been saved</div>
     </div>
     <div class="col-sm-offset-4 col-sm-10" ng-hide="signupform.dish.$error.validMenuItem || signupform.dish.$error.required">
       <menu-item menu-item="menuItem"></menu-item>
